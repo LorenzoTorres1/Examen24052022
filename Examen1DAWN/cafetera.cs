@@ -1,6 +1,33 @@
 ﻿
 using System;
+class EjemploDeMiCafetera
+{
 
+    ///<summary>
+    /// Crea una nueva instancia de la clase Cafetera
+    ///</summary>
+    ///<example> Este ejemplo demuestra como realizar la instancia 
+    ///del objeto
+    /// <code>
+    /// Cafetera mi_cafetera_ejemplo = new Cafetera();
+    /// </code>
+    ///</example>
+    static void main()
+    {
+        Cafetera mi_cafetera_ejemplo = new Cafetera("EspressoBarista", "Procoffee", 0.6, 7);
+
+        Console.WriteLine(mi_cafetera_ejemplo.CantidadAguaRecipiente);
+        Console.WriteLine(mi_cafetera_ejemplo.ConsumoCapsulas(5));
+        Console.WriteLine(mi_cafetera_ejemplo.TotalCapsulas);
+        Console.WriteLine(mi_cafetera_ejemplo.ConsumoAgua(5));
+        Console.WriteLine(mi_cafetera_ejemplo.CantidadAguaRecipiente);
+        mi_cafetera_ejemplo.LlenarDeposito(0.5);
+        Console.WriteLine(mi_cafetera_ejemplo.CantidadAguaRecipiente);
+        mi_cafetera_ejemplo.ReponerCapsulas(3);
+        Console.WriteLine(mi_cafetera_ejemplo.TotalCapsulas);
+    }
+
+}
 ///<summary>
 /// Esta clase es la clase Cafetera
 ///</summary>
@@ -19,15 +46,12 @@ class Cafetera
     private string Modelo; //Referencia del modelo
     public global::System.String Modelo { get => Modelo; set => Modelo = value; }
 
-    private double CantidadAguaRecipiente; //Total de cápsulas en la máquina. 
+    private double CantidadAguaRecipiente;  //Cantidad de agua en el recipiente. 
     public global::System.Double CantidadAguaRecipiente { get => CantidadAguaRecipiente; set => CantidadAguaRecipiente = value; }
 
-    private double TotalCapsulas; //Cantidad de agua en el recipiente. 
+    private double TotalCapsulas; //Total de cápsulas en la máquina
     public global::System.Double TotalCapsulas { get => TotalCapsulas; set => TotalCapsulas = value; }
 
-
-
-    //El constructor bajo de los campos
     public Cafetera(string marca, string modelo, double cantidadAguaRecipiente, double totalCapsulas)
     {
         Marca = marca; 
@@ -41,15 +65,20 @@ class Cafetera
     ///</summary>
     ///<param name="numeroCafes">Valor de tipo double el cual 
     ///específica el número de cafés que se pueden hacer.</param>
+    ///<returns>Un string con los centilitros que quedan por llenar o un mensaje de alterta
+    ///de revisión de los niveles</returns>
+    ///<remarks>El valor predeterminado para el parámetro 
+    ///<paramref name="numeroCafes"></paramref> es de 1 cafes</remarks>
+   
     public string ConsumoAgua(double numeroCafes) //numero de cafés a hacer
     {
         const double CONSUMO = 0.1; // Constante de consumo de agua 0.1l por cada unidad de café. 
 
         CantidadAguaRecipiente = CantidadAguaRecipiente - numeroCafes * CONSUMO; 
 
-        if (CantidadAguaRecipiente < 0.1) //Cantidad del Agua en el recipiente no puede ser menor a 0
+        if (CantidadAguaRecipiente < 0.1) 
         {
-            CantidadAguaRecipiente = 0; // Si es así se asigna al mínimo = 0.
+            CantidadAguaRecipiente = 0; 
             return "Falta agua en el depósito, por favor, revisar los niveles.";
         }
         else 
@@ -63,12 +92,15 @@ class Cafetera
     ///</summary>
     ///<param name="numeroCafes">Valor de tipo double el cual 
     ///específica el número de cafés que se pueden hacer.</param>
-    public string ConsumoCapsulas(double numeroCafes) //Hacer un café 
+    ///<returns> Un string con el total de cápsulas que quedan en la cafetera o un mensaje de alerta</returns>
+    ///<remarks>El valor predeterminado para el parámetro 
+    ///<paramref name="numeroCafes"></paramref> es de 1 cafes</remarks>
+    public string ConsumoCapsulas(double numeroCafes) 
     {
-        TotalCapsulas = TotalCapsulas - numeroCafes; //Restamos el número de capsulas a los cafés hechos
-        if (TotalCapsulas < 0) // Si se sobrepasa de 0
+        TotalCapsulas = TotalCapsulas - numeroCafes;
+        if (TotalCapsulas < 0) 
         {
-            TotalCapsulas = 0; // Valor mínimo = 0
+            TotalCapsulas = 0; 
             return "Faltan cápsulas en el depósito, por favor, compre cápsulas.";
         }
         else
@@ -81,7 +113,8 @@ class Cafetera
     ///</summary>
     ///<param name="cantidadCapsulas">Valor de tipo double el cual 
     ///se suman un determinado número de cápsulas al total que ya teníamos.</param>
-    public double ReponerCapsulas(double cantidadCapsulas) //Método para sumar al total de capsulas que ya tenemos
+    ///<returns> Un double con el total de capsulas que hay</returns>
+    public double ReponerCapsulas(double cantidadCapsulas) 
     {
         TotalCapsulas = TotalCapsulas + cantidadCapsulas; 
         return TotalCapsulas;
@@ -93,7 +126,10 @@ class Cafetera
     ///</summary>
     ///<param name="litros">Valor de tipo double el cual 
     ///se suman un determinado número de litros al total que ya teníamos.</param>
-    public double LlenarDeposito(double litros) //Método para sumar al total de litros de la cafetera
+    ///<returns>Un double con los centilitros que quedan por llenar o un mensaje de alterta
+    ///de revisión de los niveles</returns>
+    ///<returns> Un double con el total de cantidad de agua en litros que hay en el recipiente</returns>
+    public double LlenarDeposito(double litros) 
     {
         CantidadAguaRecipiente = CantidadAguaRecipiente + litros;
         return CantidadAguaRecipiente;
@@ -103,31 +139,3 @@ class Cafetera
 }
 
 
-class EjemploDeMiCafetera 
-{
-
-    ///<summary>
-    /// Crea una nueva instancia de la clase Cafetera
-    ///</summary>
-    ///<example> Este ejemplo demuestra como realizar la instancia 
-    ///del objeto
-    /// <code>
-    /// Cafetera mi_cafetera_ejemplo = new Cafetera();
-    /// </code>
-    ///</example>
-    static void main()
-    {
-                Cafetera mi_cafetera_ejemplo = new Cafetera("EspressoBarista", "Procoffee", 0.6, 7);
-
-        Console.WriteLine(mi_cafetera_ejemplo.CantidadAguaRecipiente);
-        Console.WriteLine(mi_cafetera_ejemplo.ConsumoCapsulas(5));
-        Console.WriteLine(mi_cafetera_ejemplo.TotalCapsulas);
-        Console.WriteLine(mi_cafetera_ejemplo.ConsumoAgua(5));
-        Console.WriteLine(mi_cafetera_ejemplo.CantidadAguaRecipiente);
-        mi_cafetera_ejemplo.LlenarDeposito(0.5);
-        Console.WriteLine(mi_cafetera_ejemplo.CantidadAguaRecipiente);
-        mi_cafetera_ejemplo.ReponerCapsulas(3);
-        Console.WriteLine(mi_cafetera_ejemplo.TotalCapsulas);
-    }
-
-}
